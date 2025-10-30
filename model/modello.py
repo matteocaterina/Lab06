@@ -37,6 +37,24 @@ class Autonoleggio:
         """
 
         # TODO
+        lista_automobili = []
+        try:
+            cnx = get_connection()
+            cursor = cnx.cursor(dictionary=True)
+            query = "SELECT * FROM automobile"
+            cursor.execute(query)
+            automobili = cursor.fetchall()
+            for auto in automobili:
+                lista_automobili.append(Automobile(**auto))
+
+            return lista_automobili
+        except Exception as e:
+            print(f'errore nel recupero automobili {e}')
+            return []
+        finally:
+            if cursor: cursor.close()
+            if cnx: cnx.close()
+
 
     def cerca_automobili_per_modello(self, modello) -> list[Automobile] | None:
         """
@@ -45,3 +63,21 @@ class Autonoleggio:
             :return: una lista con tutte le automobili di marca e modello indicato oppure None
         """
         # TODO
+        lista_auto_ricerca = []
+        try:
+            cnx = get_connection()
+            cursor = cnx.cursor(dictionary=True)
+            query_cerca = f"SELECT * FROM automobile WHERE modello = %s "
+            cursor.execute(query_cerca, (modello,))
+            automobili_cerca = cursor.fetchall()
+            for auto in automobili_cerca:
+                lista_auto_ricerca.append(Automobile(**auto))
+
+            return lista_auto_ricerca
+        except Exception as e:
+            print(f'errore nella ricerca automobile {e}')
+            return []
+        finally:
+            if cursor: cursor.close()
+            if cnx: cnx.close()
+

@@ -1,6 +1,6 @@
 import flet as ft
 
-from model.model import Autonoleggio
+from model.modello import Autonoleggio
 from UI.view import View
 from UI.controller import Controller
 

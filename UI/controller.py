@@ -1,6 +1,6 @@
 import flet as ft
 from UI.view import View
-from model.model import Autonoleggio
+from model.modello import Autonoleggio
 
 '''
     CONTROLLER:
@@ -29,3 +29,20 @@ class Controller:
 
     # Altre Funzioni Event Handler
     # TODO
+    def HandlerCerca(self, e):
+        modello = self._view.txt_modello.value
+        automobili = self._model.cerca_automobili_per_modello(modello)
+        for auto in automobili:
+            self._view.lista_auto_ricerca.controls.append(ft.Text(auto))
+
+        self._view.txt_modello.value = ""
+        self._view.txt_modello.update()
+        self._view.update()
+
+    def HandlerMostra(self, e):
+        for auto in self._model.get_automobili():
+            riga = ft.Text(auto)
+            self._view.lista_auto.controls.append(riga)
+
+        self._view.update()
+
