@@ -30,6 +30,7 @@ class Controller:
     # Altre Funzioni Event Handler
     # TODO
     def HandlerCerca(self, e):
+        self._view.lista_auto_ricerca.controls.clear()
         modello = self._view.txt_modello.value
         automobili = self._model.cerca_automobili_per_modello(modello)
         for auto in automobili:
@@ -40,6 +41,7 @@ class Controller:
         self._view.update()
 
     def HandlerMostra(self, e):
+        self._view.lista_auto.controls.clear()
         for auto in self._model.get_automobili():
             riga = ft.Text(auto)
             self._view.lista_auto.controls.append(riga)
