@@ -58,7 +58,7 @@ class Controller:
             self._view.show_alert(f'❌ Nessuna automobile trovata!')
         else:
             for auto in automobili:
-                automobile = ft.Text(auto)
+                automobile = ft.Text(str(auto))
                 self._view.lista_auto.controls.append(automobile)
             self._view.show_alert('✅ Aggiunta delle automobili effettuata con successo!')
 
