@@ -31,10 +31,20 @@ class Controller:
     # TODO
     def HandlerCerca(self, e):
         self._view.lista_auto_ricerca.controls.clear()
-        modello = self._view.txt_modello.value
+        modello = self._view.txt_modello.value.strip()
         automobili = self._model.cerca_automobili_per_modello(modello)
-        for auto in automobili:
-            self._view.lista_auto_ricerca.controls.append(ft.Text(auto))
+
+        if modello == '':
+            self._view.show_alert("❌ Il campo 'Modello' non può essere vuoto per effettuare la ricerca")
+            return
+
+        if not automobili:
+            self._view.show_alert(f'❌ Nessuna automobile trovata con il modello {modello}')
+        else:
+            for auto in automobili:
+                automobile = ft.Text(auto)
+                self._view.lista_auto_ricerca.controls.append(automobile)
+            self._view.show_alert(f'✅ Ricerca del modello: {modello} effettuata con successo!')
 
         self._view.txt_modello.value = ""
         self._view.txt_modello.update()
@@ -42,9 +52,16 @@ class Controller:
 
     def HandlerMostra(self, e):
         self._view.lista_auto.controls.clear()
-        for auto in self._model.get_automobili():
-            riga = ft.Text(auto)
-            self._view.lista_auto.controls.append(riga)
+        automobili = self._model.get_automobili()
+
+        if not automobili:
+            self._view.show_alert(f'❌ Nessuna automobile trovata!')
+        else:
+            for auto in automobili:
+                automobile = ft.Text(auto)
+                self._view.lista_auto.controls.append(automobile)
+            self._view.show_alert('✅ Aggiunta delle automobili effettuata con successo!')
+
 
         self._view.update()
 
