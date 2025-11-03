@@ -38,6 +38,8 @@ class Autonoleggio:
 
         # TODO
         lista_automobili = []
+        cnx = None
+        cursor = None
         try:
             cnx = get_connection()
             cursor = cnx.cursor(dictionary=True)
@@ -66,6 +68,8 @@ class Autonoleggio:
         """
         # TODO
         lista_auto_ricerca = []
+        cnx = None
+        cursor = None
         try:
             cnx = get_connection()
             cursor = cnx.cursor(dictionary=True)
