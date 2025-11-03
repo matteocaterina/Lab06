@@ -43,17 +43,19 @@ class Autonoleggio:
             cursor = cnx.cursor(dictionary=True)
             query = "SELECT * FROM automobile"
             cursor.execute(query)
-            automobili = cursor.fetchall()
-            for auto in automobili:
-                lista_automobili.append(Automobile(**auto))
+            for auto in cursor:
+                lista_automobili.append(Automobile(auto['codice'], auto['marca'], auto['modello'],
+                                                   auto['anno'], auto['posti'],auto['disponibile']))
 
             return lista_automobili
         except Exception as e:
             print(f'errore nel recupero automobili {e}')
             return []
         finally:
-            if cursor: cursor.close()
-            if cnx: cnx.close()
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 
 
     def cerca_automobili_per_modello(self, modello) -> list[Automobile] | None:
@@ -67,17 +69,19 @@ class Autonoleggio:
         try:
             cnx = get_connection()
             cursor = cnx.cursor(dictionary=True)
-            query_cerca = f"SELECT * FROM automobile WHERE modello = %s "
+            query_cerca = "SELECT * FROM automobile WHERE modello = %s "
             cursor.execute(query_cerca, (modello,))
-            automobili_cerca = cursor.fetchall()
-            for auto in automobili_cerca:
-                lista_auto_ricerca.append(Automobile(**auto))
+            for auto in cursor:
+                lista_auto_ricerca.append(Automobile(auto['codice'], auto['marca'], auto['modello'],
+                                                   auto['anno'], auto['posti'],auto['disponibile']))
 
             return lista_auto_ricerca
         except Exception as e:
             print(f'errore nella ricerca automobile {e}')
             return []
         finally:
-            if cursor: cursor.close()
-            if cnx: cnx.close()
+            if cursor:
+                cursor.close()
+            if cnx:
+                cnx.close()
 

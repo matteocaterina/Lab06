@@ -42,7 +42,7 @@ class Controller:
             self._view.show_alert(f'❌ Nessuna automobile trovata con il modello {modello}')
         else:
             for auto in automobili:
-                automobile = ft.Text(auto)
+                automobile = ft.Text(str(auto))
                 self._view.lista_auto_ricerca.controls.append(automobile)
             self._view.show_alert(f'✅ Ricerca del modello: {modello} effettuata con successo!')
 
@@ -60,7 +60,7 @@ class Controller:
             for auto in automobili:
                 automobile = ft.Text(str(auto))
                 self._view.lista_auto.controls.append(automobile)
-            self._view.show_alert('✅ Aggiunta delle automobili effettuata con successo!')
+            self._view.show_alert('✅ Automobili aggiunte con con successo!')
 
 
         self._view.update()
